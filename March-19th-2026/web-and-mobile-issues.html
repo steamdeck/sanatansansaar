@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sanatan Sansaar Web & Mobile Bug/Feature Report. Includes URLs, issues, and solutions.">
+    <title>Sanatan Sansaar Issue Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #222;
+        }
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        section {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        ul {
+            padding-left: 20px;
+        }
+        pre {
+            background: #f0f0f0;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar img {
+            max-height: 50px;
+        }
+        .navbar .icons img {
+            max-height: 35px;
+            margin-left: 10px;
+        }
+        .icon-small {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .navbar .icons {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+  
+
+    <h1>March 19th 2026 <br>Sanatan Sansaar Web & Mobile Issue Tracker
+    </h1>
+
+    <!-- SEO Friendly URLs -->
+    <section>
+        <h2>Make URLs SEO Friendly</h2>
+        <ul>
+            <li><a href="https://www.sanatansansaar.com/temples/609c901c-b23e-44a3-9796-2e8074de308e">Temple Page</a></li>
+            <li><a href="https://www.sanatansansaar.com/events/71b13656-3b5a-4944-9558-4a946cdb8bbe">Events Page</a></li>
+        </ul>
+    </section>
+
+    <!-- Bazaar / Cart Issues -->
+    <section>
+        <h2>Bazaar / Cart Issues</h2>
+        <ul>
+            <li>Mobile not responsive: <a href="https://www.sanatansansaar.com/bazaar/cart">Cart Page</a></li>
+            <li>Section : "Add to your order" (Add HREF)</li>
+        </ul>
+    </section>
+
+    <!-- Vedic Vaastu -->
+    <section>
+        <h2>Vedic Vaastu</h2>
+        <ul>
+            <li>Page: <a href="https://www.sanatansansaar.com/vedic-vaastu">Vedic Vaastu</a></li>
+            <li>Section: "Which Space Do You Want to Balance?"</li>
+            <li>Icons should be smaller: use <code>class="icon-small"</code></li>
+        </ul>
+    </section>
+
+    <!-- Seva Listings -->
+    <section>
+        <h2>Fix Date Validation</h2>
+        <ul>
+            <li>Page: <a href="https://sanatansansaar.com/seva/listings">Seva Listings</a></li>
+            <li>Individual Seva: <a href="https://sanatansansaar.com/seva/website-test-seva-slug">website-test-seva</a></li>
+<li>            Signup Page - Date Validation(webapp)</li>
+        </ul>
+              <code>JSON parse error: Cannot deserialize value of type `java.time.LocalDate` from String "111111-11-11": Failed to deserialize java.time.LocalDate: (java.time.format.DateTimeParseException) Text '111111-11-11' could not be parsed at index 0
+</code>
+    </section>
+
+    <!-- Divya Jotish -->
+    <section>
+        <h2>Divya Jotish</h2>
+        <ul>
+            <li>Page: <a href="https://dev.sanatansansaar.com/divya-jotish">Divya Jotish</a></li>
+            <li>Section: "What are you struggling with right now?" — pills not functioning</li>
+        </ul>
+    </section>
+
+    <!-- QR Code / App Redirection -->
+    <section>
+        <h2>*Fixed* Single QR for iOS and Android</h2>
+        <ul>
+            <li>Solution page: <a href="https://sanatansansaar.vercel.app/device.html">Device Redirect</a></li>
+        </ul>
+    </section>
+
+    <!-- Account Management -->
+    <section>
+        <h2>Account / Family Management</h2>
+        <ul>
+            <li>Family Page: <a href="https://dev.sanatansansaar.com/account/family">Add "Specify" in "Other"</a></li>
+            <li>Account Page: <a href="https://dev.sanatansansaar.com/account">Update phone number display</a></li>
+            <li>Example: ++91 8287561934</li>
+        </ul>
+    </section>
+
+    <!-- Wishlist / Liked Items -->
+    <section>
+        <h2>Wishlist / Liked Items</h2>
+        <ul>
+            <li>Clarify location and display for liked/favourite/wishlist items</li>
+        </ul>
+    </section>
+
+    <!-- Consult / Translator Issues -->
+    <section>
+        <h2>Consult / Translator Issues</h2>
+        <ul>
+            <li>Talk to Astrologer page: <a href="https://consult.sanatansansaar.com/talk-to-astrologer">Check language toggle</a></li>
+            <li>The webpage loads in Hindi, but when I click to change the language, it switches between English and Hindi automatically with an error.</li>
+            <li><code>translate.google.com…ogld=vTE_20260317:1 
+ GET https://translate.google.com/gen204?sl=en&tl=hi&textlen=651&ctt=1&ttt=134&ttl=49&sr=1&ef=sda&nca=te_time&client=te&logld=vTE_20260317 net::ERR_BLOCKED_BY_CLIENT
+m=el_main:86 
+ POST https://translate.googleapis.com/element/log?format=json&hasfast=true&authuser=0 net::ERR_BLOCKED_BY_CLIENT
+﻿</code></li>
+        </ul>
+    </section>
+
+    <!-- Firebase Configuration -->
+    <section>
+        <h2>Secrets Visible - <a href="https://consult.sanatansansaar.com/">Consult Sub-Domain</a></h2>
+        <pre>
+var firebaseConfig = {
+    apiKey: "AIzaSyDxT5aqpvr-PF-WRolnywpTvkiDo-KcuFc",
+    databaseURL: "https://sanatan-sansaar-default-rtdb.firebaseio.com",
+    authDomain: "sanatan-sansaar.firebaseapp.com",
+    projectId: "sanatan-sansaar",
+    storageBucket: "sanatan-sansaar.firebasestorage.app",
+    messagingSenderId: "1087300759984",
+    appId: "1:1087300759984:web:0e245566f753d7444aa675",
+    measurementId: "G-QVQLTEJ0QW"
+};
+firebase.initializeApp(firebaseConfig);
+        </pre>
+    </section>
+
+    <!-- Mobile App Issues -->
+    <section>
+        <h2>Mobile App</h2>
+        <ul>
+            <li>Horoscope should prioritize by user's DOB</li>
+            <li>On Purchase gift wallet amount not updating immediately; requires reopening the app to see changes.</li>
+        </ul>
+    </section>Error!<br>
+<img src="https://raw.githubusercontent.com/steamdeck/sanatansansaar/refs/heads/main/WhatsApp%20Image%202026-03-19%20at%206.37.58%20PM.jpeg" width="25%"> Alignment Issue<br>
+<img src="https://raw.githubusercontent.com/steamdeck/sanatansansaar/refs/heads/main/WhatsApp%20Image%202026-03-19%20at%206.37.59%20PM%20(1).jpeg" width="25%"> Alignment Issue<br>
+<img src="https://raw.githubusercontent.com/steamdeck/sanatansansaar/refs/heads/main/WhatsApp%20Image%202026-03-19%20at%206.37.59%20PM.jpeg" width="25%">
+</body>
+</html>
