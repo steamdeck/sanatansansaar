@@ -9,7 +9,6 @@
   .ss-app-qr-card { text-align: center; text-decoration: none; color: inherit; }
   .ss-qr-img { width: 200px; height: 200px; }
   .ss-app-label { display: block; margin-top: 5px; font-weight: bold; }
-  #open-app-btn { padding: 15px 30px; font-size: 16px; margin-top: 20px; cursor: pointer; }
 </style>
 <script>
 function openAppOrRedirect() {
@@ -21,57 +20,52 @@ function openAppOrRedirect() {
     if (isDesktop) {
         // Show QR codes for desktop users
         document.getElementById('qr-section').style.display = 'flex';
-        document.getElementById('open-app-btn').style.display = 'none';
         return;
     }
 
-    // Show Open App button for mobile
-    document.getElementById('open-app-btn').style.display = 'inline-block';
-    document.getElementById('open-app-btn').onclick = () => {
-        let appURL = "";  // Custom URL scheme (replace with your app's if available)
-        let storeURL = "";
+    // App deep link URLs
+    let appURL = "";
+    let storeURL = "";
 
-        if (isIOS) {
-            appURL = "sanatan://home"; // Replace with your iOS custom URL scheme if available
-            storeURL = "https://linktw.in/VtYmEs";
-        } else if (isAndroid) {
-            appURL = "intent://home#Intent;scheme=sanatan;package=com.sanatan.sansaar;end"; // Replace if needed
-            storeURL = "https://linktw.in/gAvZVN";
+    if (isIOS) {
+        appURL = "sanatan://home"; // Replace with your app's custom scheme
+        storeURL = "https://apps.apple.com/in/app/sanatan-sansaar/id6708234349";
+    } else if (isAndroid) {
+        // Android Intent URL
+        appURL = "intent://home#Intent;scheme=sanatan;package=com.sanatan.sansaar;end";
+        storeURL = "https://play.google.com/store/apps/details?id=com.sanatan.sansaar";
+    }
+
+    // Try to open the app
+    const startTime = Date.now();
+    window.location.href = appURL;
+
+    // Fallback to store if app not installed
+    setTimeout(() => {
+        if (Date.now() - startTime < 2000) {
+            window.location.href = storeURL;
         }
-
-        const startTime = Date.now();
-        window.location.href = appURL;
-
-        setTimeout(() => {
-            if (Date.now() - startTime < 2000) {
-                // App not installed, redirect to store
-                window.location.href = storeURL;
-            }
-        }, 1500);
-    };
+    }, 1500);
 }
 </script>
 </head>
 <body onload="openAppOrRedirect()">
+  <p>Opening the Sanatan Sansaar app or redirecting to your app store...</p>
 
-<p>Open the Sanatan Sansaar app or scan the QR code if on desktop.</p>
-
-<!-- Open App button for mobile -->
-<button id="open-app-btn" style="display:none;">Open App</button>
-
-<!-- QR Codes for desktop users -->
-<div id="qr-section" class="ss-app-qr-row" style="display:none;">
-    <a href="https://linktw.in/gAvZVN" target="_blank" rel="noopener noreferrer" class="ss-app-qr-card">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://linktw.in/gAvZVN"
+  <!-- QR Codes for desktop users -->
+  <div id="qr-section" class="ss-app-qr-row" style="display: none;">
+    <a href="https://play.google.com/store/apps/details?id=com.sanatan.sansaar"
+       target="_blank" rel="noopener noreferrer" class="ss-app-qr-card">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://play.google.com/store/apps/details?id=com.sanatan.sansaar"
            alt="Android QR" class="ss-qr-img" loading="lazy">
       <span class="ss-app-label">Android</span>
     </a>
-    <a href="https://linktw.in/VtYmEs" target="_blank" rel="noopener noreferrer" class="ss-app-qr-card">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://linktw.in/VtYmEs"
+    <a href="https://apps.apple.com/in/app/sanatan-sansaar/id6708234349"
+       target="_blank" rel="noopener noreferrer" class="ss-app-qr-card">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://apps.apple.com/in/app/sanatan-sansaar/id6708234349"
            alt="iOS QR" class="ss-qr-img" loading="lazy">
       <span class="ss-app-label">iOS</span>
     </a>
-</div>
-
+  </div>
 </body>
 </html>
