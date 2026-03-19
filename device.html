@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Redirect</title>
+<script>
+  function redirectToAppStore() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Default to a webpage (if device not recognized)
+    let redirectURL = "https://www.sanatan.com"; 
+
+    // Detect iOS
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      redirectURL = "https://apps.apple.com/in/app/sanatan-sansaar/id6708234349";
+    } 
+    // Detect Android
+    else if (/android/i.test(userAgent)) {
+      redirectURL = "https://play.google.com/store/apps/details?id=com.sanatan.sansaar";
+    }
+
+    // Redirect user
+    window.location.href = redirectURL;
+  }
+
+  // Redirect as soon as the page loads
+  window.onload = redirectToAppStore;
+</script>
+</head>
+<body>
+  <p>Redirecting you to the correct app store...</p>
+  <div class="ss-app-qr-row">
+    <a href="https://play.google.com/store/apps/details?id=com.sanatan.sansaar"
+       target="_blank" rel="noopener noreferrer"
+       class="ss-app-qr-card">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://play.google.com/store/apps/details?id=com.sanatan.sansaar"
+           alt="Android QR" class="ss-qr-img" loading="lazy">
+      <span class="ss-app-label">Android</span>
+    </a>
+    <a href="https://apps.apple.com/in/app/sanatan-sansaar/id6708234349"
+       target="_blank" rel="noopener noreferrer"
+       class="ss-app-qr-card">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://apps.apple.com/in/app/sanatan-sansaar/id6708234349"
+           alt="iOS QR" class="ss-qr-img" loading="lazy">
+      <span class="ss-app-label">iOS</span>
+    </a>
+  </div>
+</body>
+</html>
