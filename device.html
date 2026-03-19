@@ -3,44 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>App Redirect</title>
+<title>Open Sanatan App</title>
+<style>
+  .ss-app-qr-row { display: flex; gap: 20px; margin-top: 20px; }
+  .ss-app-qr-card { text-align: center; text-decoration: none; color: inherit; }
+  .ss-qr-img { width: 200px; height: 200px; }
+  .ss-app-label { display: block; margin-top: 5px; font-weight: bold; }
+</style>
 <script>
-  function redirectToAppStore() {
+function openAppOrRedirect() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+    const isAndroid = /android/i.test(userAgent);
+    const isDesktop = !isIOS && !isAndroid;
 
-    // Default to a webpage (if device not recognized)
-    let redirectURL = "https://www.sanatan.com"; 
-
-    // Detect iOS
-    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-      redirectURL = "https://apps.apple.com/in/app/sanatan-sansaar/id6708234349";
-    } 
-    // Detect Android
-    else if (/android/i.test(userAgent)) {
-      redirectURL = "https://play.google.com/store/apps/details?id=com.sanatan.sansaar";
+    if (isDesktop) {
+        // Show QR codes for desktop users
+        document.getElementById('qr-section').style.display = 'flex';
+        return;
     }
 
-    // Redirect user
-    window.location.href = redirectURL;
-  }
+    // App deep link URLs
+    let appURL = "";
+    let storeURL = "";
 
-  // Redirect as soon as the page loads
-  window.onload = redirectToAppStore;
+    if (isIOS) {
+        appURL = "sanatan://home"; // Replace with your app's custom scheme
+        storeURL = "https://apps.apple.com/in/app/sanatan-sansaar/id6708234349";
+    } else if (isAndroid) {
+        // Android Intent URL
+        appURL = "intent://home#Intent;scheme=sanatan;package=com.sanatan.sansaar;end";
+        storeURL = "https://play.google.com/store/apps/details?id=com.sanatan.sansaar";
+    }
+
+    // Try to open the app
+    const startTime = Date.now();
+    window.location.href = appURL;
+
+    // Fallback to store if app not installed
+    setTimeout(() => {
+        if (Date.now() - startTime < 2000) {
+            window.location.href = storeURL;
+        }
+    }, 1500);
+}
 </script>
 </head>
-<body>
-  <p>Redirecting you to the correct app store...</p>
-  <div class="ss-app-qr-row">
+<body onload="openAppOrRedirect()">
+  <p>Opening the Sanatan Sansaar app or redirecting to your app store...</p>
+
+  <!-- QR Codes for desktop users -->
+  <div id="qr-section" class="ss-app-qr-row" style="display: none;">
     <a href="https://play.google.com/store/apps/details?id=com.sanatan.sansaar"
-       target="_blank" rel="noopener noreferrer"
-       class="ss-app-qr-card">
+       target="_blank" rel="noopener noreferrer" class="ss-app-qr-card">
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://play.google.com/store/apps/details?id=com.sanatan.sansaar"
            alt="Android QR" class="ss-qr-img" loading="lazy">
       <span class="ss-app-label">Android</span>
     </a>
     <a href="https://apps.apple.com/in/app/sanatan-sansaar/id6708234349"
-       target="_blank" rel="noopener noreferrer"
-       class="ss-app-qr-card">
+       target="_blank" rel="noopener noreferrer" class="ss-app-qr-card">
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://apps.apple.com/in/app/sanatan-sansaar/id6708234349"
            alt="iOS QR" class="ss-qr-img" loading="lazy">
       <span class="ss-app-label">iOS</span>
