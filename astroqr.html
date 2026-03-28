@@ -3,218 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanatan Sansaar Astro - Opening App...</title>
+    <title>Sanatan Sansaar - Opening App...</title>
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Sanatan Sansaar Astro">
-    <meta property="og:description" content="Your spiritual companion for astrology, pooja, and more!">
-    <meta property="og:image" content="https://www.sanatansansaar.com/Bird.png">
+    <meta property="og:title" content="Sanatan Sansaar">
+    <meta property="og:description" content="Your spiritual companion for Pooja, Seva, and more!">
+    <meta property="og:image" content="https://www.sanatansansaar.com/assets/app-icon.png">
     <meta property="og:url" content="https://www.sanatansansaar.com">
     <meta property="og:type" content="website">
 
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sanatan Sansaar">
+    <meta name="twitter:description" content="Your spiritual companion for Pooja, Seva, and more!">
+
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
             min-height: 100vh;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            justify-content:center;
-            padding:20px;
-            color:white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
         }
 
-        .container { text-align:center; max-width:400px; }
+        .container { text-align: center; max-width: 400px; }
 
         .logo {
-            width:120px;
-            height:120px;
-            border-radius:24px;
-            margin-bottom:24px;
+            width: 120px;
+            height: 120px;
+            border-radius: 24px;
+            margin-bottom: 24px;
         }
 
-        h1 { font-size:28px; margin-bottom:12px; }
-        .subtitle { margin-bottom:32px; opacity:.9; }
-
-        .spinner {
-            width:24px;
-            height:24px;
-            border:3px solid rgba(255,255,255,0.3);
-            border-top:white;
-            border-radius:50%;
-            animation:spin 1s linear infinite;
-        }
-
-        @keyframes spin { to { transform:rotate(360deg); } }
+        h1 { font-size: 28px; margin-bottom: 12px; font-weight: 700; }
+        .subtitle { font-size: 16px; opacity: 0.9; margin-bottom: 32px; }
 
         .loading {
-            display:flex;
-            gap:10px;
-            justify-content:center;
-            align-items:center;
-            margin-bottom:24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
         }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .buttons { display: flex; flex-direction: column; gap: 12px; }
 
         .btn {
-            display:block;
-            padding:14px;
-            border-radius:12px;
-            text-decoration:none;
-            font-weight:600;
-            margin:10px 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
         }
 
-        .primary { background:white; color:#FF6B35; }
-        .secondary { border:2px solid white; color:white; }
+        .btn-primary { background: white; color: #FF6B35; }
+        .btn-secondary { background: rgba(255,255,255,0.2); color: white; border: 2px solid white; }
 
-        .hidden { display:none; }
+        .hidden { display: none; }
     </style>
 </head>
 
 <body>
-
 <div class="container">
 
-    <img src="https://www.sanatansansaar.com/Bird.png" class="logo">
+    <img src="https://www.sanatansansaar.com/assets/app-icon.png" class="logo">
 
-    <h1>Sanatan Sansaar Astro</h1>
-    <p class="subtitle">Opening app...</p>
+    <h1>Sanatan Sansaar</h1>
+    <p class="subtitle">Your spiritual companion for Pooja, Seva, and more!</p>
 
     <div class="loading" id="loading">
         <div class="spinner"></div>
         <span>Opening app...</span>
     </div>
 
-    <div id="buttons" class="hidden">
-        <a href="#" id="openAppBtn" class="btn primary">Open App</a>
-        <a href="#" id="storeBtn" class="btn secondary">Download App</a>
+    <div class="buttons" id="buttons">
+        <a href="#" class="btn btn-primary" id="openAppBtn">Open in App</a>
+        <a href="#" class="btn btn-secondary" id="storeBtn">
+            <span id="storeBtnText">Download App</span>
+        </a>
     </div>
 
 </div>
 
 <script>
-// ================= CONFIG =================
 const CONFIG = {
     appScheme: 'sanatansansaar',
+
     packageName: 'com.sanatan.sansaar.astro',
+
+    // ✅ UPDATED iOS APP ID
+    appStoreId: 'id6757469380',
 
     playStoreNativeUrl: 'market://details?id=com.sanatan.sansaar.astro',
     playStoreWebUrl: 'https://play.google.com/store/apps/details?id=com.sanatan.sansaar.astro',
 
+    // ✅ UPDATED iOS URLs
+    appStoreNativeUrl: 'itms-apps://apps.apple.com/in/app/sanatan-sansaar-astro/id6757469380',
+    appStoreWebUrl: 'https://apps.apple.com/in/app/sanatan-sansaar-astro/id6757469380',
+
     fallbackUrl: 'https://www.sanatansansaar.com'
 };
 
-// ================= DETECTION =================
-const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
+const userAgent = navigator.userAgent;
 const isAndroid = /android/i.test(userAgent);
 const isIOS = /iphone|ipad|ipod/i.test(userAgent);
 const isMobile = isAndroid || isIOS;
+const isChromeAndroid = isAndroid && /Chrome/i.test(userAgent);
 
-const isChromeAndroid = isAndroid && /Chrome\/[.0-9]*/i.test(userAgent);
-
-const isInAppBrowser = (
-    /FBAN|FBAV/i.test(userAgent) ||
-    /Instagram/i.test(userAgent) ||
-    /Twitter/i.test(userAgent) ||
-    /LinkedInApp/i.test(userAgent) ||
-    /Line\//i.test(userAgent) ||
-    /KAKAOTALK/i.test(userAgent) ||
-    /Snapchat/i.test(userAgent) ||
-    /WhatsApp/i.test(userAgent) ||
-    /Telegram/i.test(userAgent) ||
-    /Discord/i.test(userAgent) ||
-    (isAndroid && /wv\)/i.test(userAgent))
-);
-
-// ================= PATH =================
-const currentPath = window.location.pathname || '/';
-const currentSearch = window.location.search || '';
-
-// ================= BUILD APP LINK (FIXED SAFE) =================
+// Build deep link
 function buildAppLink() {
-    let appPath = currentPath;
+    const path = window.location.pathname + window.location.search;
 
-    if (appPath.startsWith('/app')) {
-        appPath = appPath.substring(4) || '/';
+    if (isChromeAndroid) {
+        return `intent://${path}#Intent;scheme=${CONFIG.appScheme};package=${CONFIG.packageName};S.browser_fallback_url=${encodeURIComponent(CONFIG.playStoreWebUrl)};end`;
     }
 
-    // ✅ Ensure valid path (CRITICAL FIX)
-    if (!appPath || appPath === '') {
-        appPath = '/';
-    }
-
-    if (!appPath.startsWith('/')) {
-        appPath = '/' + appPath;
-    }
-
-    const customSchemeUrl = `${CONFIG.appScheme}:/${appPath}${currentSearch}`;
-
-    if (isChromeAndroid && !isInAppBrowser) {
-        return `intent://${appPath}${currentSearch}#Intent;scheme=${CONFIG.appScheme};package=${CONFIG.packageName};end`;
-    }
-
-    return customSchemeUrl;
+    return `${CONFIG.appScheme}://${path}`;
 }
 
-// ================= STORE =================
+// Open store
 function openStore() {
-    if (isInAppBrowser) {
+    if (isAndroid) {
+        window.location.href = CONFIG.playStoreNativeUrl;
+        setTimeout(() => {
+            window.location.href = CONFIG.playStoreWebUrl;
+        }, 1000);
+    } else if (isIOS) {
+        window.location.href = CONFIG.appStoreNativeUrl;
+    } else {
         window.location.href = CONFIG.playStoreWebUrl;
-        return;
     }
-
-    window.location.href = CONFIG.playStoreNativeUrl;
-
-    setTimeout(() => {
-        window.location.href = CONFIG.playStoreWebUrl;
-    }, 1200);
 }
 
-// ================= FLOW =================
+// Try open app
 function tryOpenApp() {
-    if (!isMobile || isInAppBrowser) {
-        showButtons();
+    if (!isMobile) {
+        document.getElementById('loading').classList.add('hidden');
         return;
     }
 
-    const start = Date.now();
-    const appLink = buildAppLink();
-
-    window.location.href = appLink;
+    const link = buildAppLink();
+    window.location.href = link;
 
     setTimeout(() => {
-        const elapsed = Date.now() - start;
-
-        if (elapsed < 2000) {
-            showButtons();
+        if (document.visibilityState !== 'hidden') {
+            document.getElementById('loading').classList.add('hidden');
             openStore();
         }
     }, 1500);
 }
 
-// ================= UI =================
-function showButtons() {
-    document.getElementById('loading').classList.add('hidden');
-    document.getElementById('buttons').classList.remove('hidden');
-}
+// Init
+tryOpenApp();
 
-// ================= EVENTS =================
-document.getElementById('openAppBtn').addEventListener('click', (e) => {
+// Buttons
+document.getElementById('openAppBtn').onclick = (e) => {
     e.preventDefault();
     window.location.href = buildAppLink();
-});
+};
 
-document.getElementById('storeBtn').addEventListener('click', (e) => {
+document.getElementById('storeBtn').onclick = (e) => {
     e.preventDefault();
     openStore();
-});
-
-// ================= INIT =================
-setTimeout(tryOpenApp, 500);
+};
 </script>
 
 </body>
