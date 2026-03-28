@@ -1,191 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanatan Sansaar - Opening App...</title>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    function detectAndRedirect() {
+      var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-    <meta property="og:title" content="Sanatan Sansaar">
-    <meta property="og:description" content="Your spiritual companion for Pooja, Seva, and more!">
-    <meta property="og:image" content="https://www.sanatansansaar.com/Bird.png">
-    <meta property="og:url" content="https://www.sanatansansaar.com">
-    <meta property="og:type" content="website">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Sanatan Sansaar">
-    <meta name="twitter:description" content="Your spiritual companion for Pooja, Seva, and more!">
-
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            color: white;
-        }
-
-        .container { text-align: center; max-width: 400px; }
-
-        .logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 24px;
-            margin-bottom: 24px;
-        }
-
-        h1 { font-size: 28px; margin-bottom: 12px; font-weight: 700; }
-        .subtitle { font-size: 16px; opacity: 0.9; margin-bottom: 32px; }
-
-        .loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 24px;
-        }
-
-        .spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .buttons { display: flex; flex-direction: column; gap: 12px; }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .btn-primary { background: white; color: #FF6B35; }
-        .btn-secondary { background: rgba(255,255,255,0.2); color: white; border: 2px solid white; }
-
-        .hidden { display: none; }
-    </style>
+      if (/android/i.test(userAgent)) {
+        // Android device
+        window.location.href = "https://play.google.com/store/apps/details?id=com.sanatan.sansaar.astro";
+      } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        // iOS device
+        window.location.href = "https://apps.apple.com/in/app/sanatan-sansaar-astro/id6757469380";
+      } else {
+        // Fallback (optional)
+        document.body.innerHTML = "<h2>Please open this link on your mobile device.</h2>";
+      }
+    }
+  </script>
 </head>
-
-<body>
-<div class="container">
-
-    <img src="https://www.sanatansansaar.com/Bird.png" class="logo">
-
-    <h1>Sanatan Sansaar</h1>
-    <p class="subtitle">Your spiritual companion for Pooja, Seva, and more!</p>
-
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <span>Opening app...</span>
-    </div>
-
-    <div class="buttons" id="buttons">
-        <a href="#" class="btn btn-primary" id="openAppBtn">Open in App</a>
-        <a href="#" class="btn btn-secondary" id="storeBtn">
-            <span id="storeBtnText">Download App</span>
-        </a>
-    </div>
-
-</div>
-
-<script>
-const CONFIG = {
-    appScheme: 'sanatansansaar',
-
-    packageName: 'com.sanatan.sansaar.astro',
-
-    // ✅ UPDATED iOS APP ID
-    appStoreId: 'id6757469380',
-
-    playStoreNativeUrl: 'market://details?id=com.sanatan.sansaar.astro',
-    playStoreWebUrl: 'https://play.google.com/store/apps/details?id=com.sanatan.sansaar.astro',
-
-    // ✅ UPDATED iOS URLs
-    appStoreNativeUrl: 'itms-apps://apps.apple.com/in/app/sanatan-sansaar-astro/id6757469380',
-    appStoreWebUrl: 'https://apps.apple.com/in/app/sanatan-sansaar-astro/id6757469380',
-
-    fallbackUrl: 'https://www.sanatansansaar.com'
-};
-
-const userAgent = navigator.userAgent;
-const isAndroid = /android/i.test(userAgent);
-const isIOS = /iphone|ipad|ipod/i.test(userAgent);
-const isMobile = isAndroid || isIOS;
-const isChromeAndroid = isAndroid && /Chrome/i.test(userAgent);
-
-// Build deep link
-function buildAppLink() {
-    const path = window.location.pathname + window.location.search;
-
-    if (isChromeAndroid) {
-        return `intent://${path}#Intent;scheme=${CONFIG.appScheme};package=${CONFIG.packageName};S.browser_fallback_url=${encodeURIComponent(CONFIG.playStoreWebUrl)};end`;
-    }
-
-    return `${CONFIG.appScheme}://${path}`;
-}
-
-// Open store
-function openStore() {
-    if (isAndroid) {
-        window.location.href = CONFIG.playStoreNativeUrl;
-        setTimeout(() => {
-            window.location.href = CONFIG.playStoreWebUrl;
-        }, 1000);
-    } else if (isIOS) {
-        window.location.href = CONFIG.appStoreNativeUrl;
-    } else {
-        window.location.href = CONFIG.playStoreWebUrl;
-    }
-}
-
-// Try open app
-function tryOpenApp() {
-    if (!isMobile) {
-        document.getElementById('loading').classList.add('hidden');
-        return;
-    }
-
-    const link = buildAppLink();
-    window.location.href = link;
-
-    setTimeout(() => {
-        if (document.visibilityState !== 'hidden') {
-            document.getElementById('loading').classList.add('hidden');
-            openStore();
-        }
-    }, 1500);
-}
-
-// Init
-tryOpenApp();
-
-// Buttons
-document.getElementById('openAppBtn').onclick = (e) => {
-    e.preventDefault();
-    window.location.href = buildAppLink();
-};
-
-document.getElementById('storeBtn').onclick = (e) => {
-    e.preventDefault();
-    openStore();
-};
-</script>
-
+<body onload="detectAndRedirect()">
 </body>
 </html>
