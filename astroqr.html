@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sanatan Sansaar Astro - Opening App...</title>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Sanatan Sansaar Astro">
+<meta property="og:description" content="Your spiritual companion for astrology, pooja & more!">
+<meta property="og:image" content="https://www.sanatansansaar.com/assets/app-icon.png">
+<meta property="og:url" content="https://www.sanatansansaar.com">
+<meta property="og:type" content="website">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #FF6B35, #F7931E);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.container { max-width:400px; }
+
+.logo {
+    width:100px;
+    margin-bottom:20px;
+    border-radius:20px;
+}
+
+h1 { font-size:26px; margin-bottom:10px; }
+p { opacity:.9; margin-bottom:25px; }
+
+.spinner {
+    width:24px;
+    height:24px;
+    border:3px solid rgba(255,255,255,0.3);
+    border-top:white;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:0 auto 15px;
+}
+
+@keyframes spin { to { transform:rotate(360deg); } }
+
+.btn {
+    display:block;
+    padding:14px;
+    margin:10px 0;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.primary { background:white; color:#FF6B35; }
+.secondary { border:2px solid white; color:white; }
+
+.hidden { display:none; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<img src="https://www.sanatansansaar.com/assets/app-icon.png" class="logo">
+
+<h1>Sanatan Sansaar Astro</h1>
+<p>Opening app...</p>
+
+<div id="loading">
+    <div class="spinner"></div>
+</div>
+
+<div id="buttons" class="hidden">
+    <a href="#" id="openAppBtn" class="btn primary">Open App</a>
+    <a href="#" id="storeBtn" class="btn secondary">Download App</a>
+</div>
+
+<p id="message" style="margin-top:20px;font-size:14px;"></p>
+
+</div>
+
+<script>
+// ================= CONFIG =================
+const CONFIG = {
+    scheme: "sanatansansaar",
+    package: "com.sanatan.sansaar.astro",
+
+    playStoreWeb: "https://play.google.com/store/apps/details?id=com.sanatan.sansaar.astro",
+    playStoreNative: "market://details?id=com.sanatan.sansaar.astro",
+
+    fallback: "https://www.sanatansansaar.com"
+};
+
+// ================= DETECTION =================
+const ua = navigator.userAgent;
+
+const isAndroid = /android/i.test(ua);
+const isIOS = /iphone|ipad|ipod/i.test(ua);
+const isMobile = isAndroid || isIOS;
+
+const isChrome = /Chrome/i.test(ua);
+const isInAppBrowser =
+    /FBAN|FBAV|Instagram|Twitter|Line|Snapchat|WhatsApp|Telegram|Discord/i.test(ua);
+
+// ================= URL PARAMS =================
+const params = new URLSearchParams(window.location.search);
+const ref = params.get("ref");
+
+// ================= BUILD LINKS =================
+function buildStoreWebUrl() {
+    let url = CONFIG.playStoreWeb;
+
+    if (ref) {
+        url += `&referrer=${encodeURIComponent("referral=" + ref)}`;
+    }
+
+    return url;
+}
+
+function buildAppLink() {
+    let path = window.location.pathname.replace(/^\/app/, '');
+    let query = window.location.search;
+
+    if (isAndroid && isChrome && !isInAppBrowser) {
+        return `intent://${path}${query}#Intent;scheme=${CONFIG.scheme};package=${CONFIG.package};S.browser_fallback_url=${encodeURI(buildStoreWebUrl())};end`;
+    }
+
+    return `${CONFIG.scheme}:/${path}${query}`;
+}
+
+// ================= STORE OPEN =================
+function openStore() {
+    if (isInAppBrowser) {
+        window.location.href = buildStoreWebUrl();
+        return;
+    }
+
+    if (isAndroid) {
+        window.location.href = CONFIG.playStoreNative;
+
+        setTimeout(() => {
+            window.location.href = buildStoreWebUrl();
+        }, 1200);
+    } else {
+        window.location.href = CONFIG.fallback;
+    }
+}
+
+// ================= MAIN FLOW =================
+function tryOpenApp() {
+    if (!isMobile || isInAppBrowser) {
+        showButtons();
+
+        if (isInAppBrowser) {
+            document.getElementById("message").innerHTML =
+                '⚠️ Open in browser (⋮) for best experience';
+        }
+
+        return;
+    }
+
+    const start = Date.now();
+    const link = buildAppLink();
+
+    window.location.href = link;
+
+    setTimeout(() => {
+        const elapsed = Date.now() - start;
+
+        if (elapsed < 2000) {
+            showButtons();
+            openStore();
+        }
+    }, 1500);
+}
+
+// ================= UI =================
+function showButtons() {
+    document.getElementById("loading").classList.add("hidden");
+    document.getElementById("buttons").classList.remove("hidden");
+}
+
+// ================= EVENTS =================
+document.getElementById("openAppBtn").onclick = (e) => {
+    e.preventDefault();
+    window.location.href = buildAppLink();
+};
+
+document.getElementById("storeBtn").onclick = (e) => {
+    e.preventDefault();
+    openStore();
+};
+
+// ================= INIT =================
+setTimeout(tryOpenApp, 700);
+</script>
+
+</body>
+</html>
