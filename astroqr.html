@@ -7,15 +7,26 @@
     function detectAndRedirect() {
       var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
+      // Android
       if (/android/i.test(userAgent)) {
-        // Android device
         window.location.href = "https://play.google.com/store/apps/details?id=com.sanatan.sansaar.astro";
-      } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        // iOS device
+      }
+      // iOS
+      else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
         window.location.href = "https://apps.apple.com/in/app/sanatan-sansaar-astro/id6757469380";
-      } else {
-        // Fallback (optional)
-        document.body.innerHTML = "<h2>Please open this link on your mobile device.</h2>";
+      }
+      // Windows or Mac (Desktop)
+      else if (/Win|Mac/i.test(userAgent)) {
+        window.location.href = "https://www.sanatansansaar.com";
+      }
+      // Fallback (other devices)
+      else {
+        document.body.innerHTML = `
+          <h2>Select your platform:</h2>
+          <a href="https://play.google.com/store/apps/details?id=com.sanatan.sansaar.astro">Android App</a><br><br>
+          <a href="https://apps.apple.com/in/app/sanatan-sansaar-astro/id6757469380">iOS App</a><br><br>
+          <a href="https://www.sanatansansaar.com">Visit Website</a>
+        `;
       }
     }
   </script>
